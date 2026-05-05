@@ -49,7 +49,7 @@ Clone this repository into your Codex skills directory:
 
 ```bash
 mkdir -p ~/.codex/skills
-git clone <REPO_URL> ~/.codex/skills/vibe-coding-review
+git clone https://github.com/PerpperQAQ/vibe-coding-review.git ~/.codex/skills/vibe-coding-review
 ```
 
 Restart Codex or reload skills if your environment requires it.
