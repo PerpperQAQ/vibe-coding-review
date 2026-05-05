@@ -1,131 +1,164 @@
 # vibe-coding-review
 
-`vibe-coding-review` is a Codex skill for people who build projects with AI coding tools and want each project to become a reusable learning asset.
+`vibe-coding-review` 是一个 Codex Skill，用来把 vibe coding 项目开发过程沉淀成可复用的学习资产。
 
-It turns AI-assisted development evidence such as code changes, plans, chat decisions, logs, validation results, and existing review reports into structured Markdown reviews. The reports are designed to be read in Obsidian or any Markdown editor.
+它适合那些主要通过 Cursor、Trae、Codex、Claude Code 等 AI 编程工具做项目，但希望在每次项目开发后真正理解“发生了什么、为什么这样做、下次怎么做得更好”的使用者。
 
-## Why This Exists
+这个 Skill 会分析 AI 辅助开发过程中产生的证据，例如代码变化、实施计划、聊天决策、错误日志、验收结果、README、部署信息以及已有复盘报告，并生成适合在 Obsidian 或其他 Markdown 编辑器中阅读的结构化复盘文档。
 
-Vibe coding can help a non-programmer ship projects quickly, but it often leaves one problem unsolved: after the project is done, the human still may not understand the development process, architecture, product decisions, or how to direct AI better next time.
+## 核心出发点
 
-This skill is built to close that loop. It acts like an objective project review advisor. It does not merely summarize files. It helps the user understand:
+Vibe coding 可以让没有深厚代码基础的人更快做出项目，但它也容易带来一个问题：项目虽然跑起来了，人却没有真正理解开发流程、项目架构、产品判断和如何更好地指挥 AI。
 
-- what happened during the project
-- how the project moved from idea to implementation
-- how the architecture is organized
-- how the user directed AI
-- where product or business judgment is weak
-- what should be reused or changed in the next project
+`vibe-coding-review` 的目标就是补上这个闭环。
 
-## Review Modes
+它不是普通的“项目总结器”，也不是逐行讲代码的教程。它更像一个客观的项目复盘顾问，帮助使用者看清：
 
-### Stage Review
+- 这个阶段或这个项目到底做了什么
+- 项目是如何从想法推进到实现的
+- 当前架构由哪些模块组成
+- 使用者是如何指挥 AI 的
+- 哪些产品或商业判断还不成熟
+- 哪些经验可以在下一个项目中复用
+- 哪些问题正在反复出现，应该被认真修正
 
-Use this after a feature, iteration, debugging milestone, deployment milestone, or other partial project milestone.
+## 复盘模式
 
-Stage reviews prioritize evidence inside the requested scope:
+### 阶段复盘
 
-- diffs
-- implementation plans
-- chat decisions
-- error logs
-- validation or acceptance results
+适合在一个功能、一次迭代、一次调试、一次部署或某个阶段性里程碑完成后使用。
 
-### Final Project Review
+阶段复盘优先分析指定范围内的关键证据：
 
-Use this when a project is complete, delivered, paused, or ready for a full retrospective.
+- diff
+- 实施计划
+- 聊天决策
+- 错误日志
+- 验收或测试结果
 
-Final reviews expand to the whole project and analyze architecture, major decisions, product maturity, business landing readiness, repeated problems, and reusable lessons.
+它重点回答：这一阶段在整个项目中处于什么位置、AI 实际做了什么、架构发生了什么变化、使用者哪里指挥得清楚或不清楚。
 
-### Monthly Review Summary
+### 完整项目复盘
 
-Use this across multiple existing review reports.
+适合在项目完成、交付、上线、暂停或需要完整回顾时使用。
 
-Monthly summaries compare score changes, repeated problems, unfinished homework, and whether the user is improving as a project owner.
+完整复盘会扩展到整个项目，分析项目发展路径、整体架构、关键技术决策、核心功能模块、产品成熟度、商业落地准备度、反复出现的问题和可复用经验。
 
-## Installation
+### 月度复盘汇总
 
-Clone this repository into your Codex skills directory:
+适合读取多份已有复盘报告，做月度总结。
+
+月度汇总会比较多份报告中的评分变化、重复问题、未完成行动作业，以及使用者作为项目负责人的能力是否在提升。
+
+## 安装方式
+
+把这个仓库克隆到 Codex 的 skills 目录：
 
 ```bash
 mkdir -p ~/.codex/skills
 git clone https://github.com/PerpperQAQ/vibe-coding-review.git ~/.codex/skills/vibe-coding-review
 ```
 
-Restart Codex or reload skills if your environment requires it.
+然后重启 Codex，或按你的环境要求重新加载 skills。
 
-## Output Directory
+## 输出目录
 
-The skill does not hard-code the original creator's local paths.
+这个 Skill 不会写死原作者的本地路径。
 
-It chooses the report output directory in this order:
+生成报告时，它会按下面顺序选择输出目录：
 
-1. A directory explicitly provided in your request.
-2. The `VIBE_CODING_REVIEW_DIR` environment variable.
-3. A project-local review directory such as `docs/vibe-coding-reviews`, `notes/vibe-coding-reviews`, or `reviews/vibe-coding-reviews`.
-4. `vibe-coding-reviews/` in the current project root.
+1. 用户在请求中明确指定的目录
+2. 环境变量 `VIBE_CODING_REVIEW_DIR` 指向的目录
+3. 当前项目中的 `docs/vibe-coding-reviews`、`notes/vibe-coding-reviews` 或 `reviews/vibe-coding-reviews`
+4. 当前项目根目录下的 `vibe-coding-reviews/`
 
-For Obsidian, set `VIBE_CODING_REVIEW_DIR` to a folder inside your vault:
+如果你使用 Obsidian，推荐把 `VIBE_CODING_REVIEW_DIR` 设置成你的 Obsidian vault 内部文件夹：
 
 ```bash
 export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 ```
 
-You can also tell Codex the output folder directly in your prompt.
+你也可以在提示词里直接告诉 Codex 想保存到哪个目录。
 
-## Usage
+## 使用方法
 
-Stage review:
-
-```text
-Use $vibe-coding-review to generate a stage review for this project.
-Scope: the last 3 commits.
-Save it to my Obsidian review folder.
-```
-
-Final project review:
+阶段复盘示例：
 
 ```text
-Use $vibe-coding-review to generate a final project review for this project.
-Focus on development process, architecture, AI direction, product maturity, and reusable lessons.
+使用 $vibe-coding-review 给这个项目做一次阶段复盘。
+范围：最近 3 次 commit。
+请重点分析项目推进流程、架构变化、AI 指挥质量和验收结果。
 ```
 
-Monthly summary:
+完整项目复盘示例：
 
 ```text
-Use $vibe-coding-review to generate a monthly review summary from these review reports.
-Compare score changes, repeated problems, and unfinished action homework.
+使用 $vibe-coding-review 给这个项目做一次完整复盘。
+重点关注开发流程、整体架构、AI 协作方式、产品成熟度、商业落地可能性和下次可复用经验。
 ```
 
-## Report Focus
+月度复盘汇总示例：
 
-The skill prioritizes learning value in this order:
+```text
+使用 $vibe-coding-review 基于这些复盘报告生成一份月度复盘汇总。
+请比较评分变化、重复出现的问题、未完成行动作业，以及我作为项目负责人的能力变化。
+```
 
-1. Project development process
-2. Architecture understanding
-3. How the user directed AI
-4. Product or business judgment
-5. Code knowledge
-6. Debug thinking
+## 报告重点
 
-It intentionally avoids becoming a line-by-line code tutorial. Code is explained only when it helps the user understand the project, architecture, workflow, or decision quality.
+这个 Skill 的学习价值优先级是：
 
-## Safety And Privacy
+1. 项目开发流程
+2. 架构理解
+3. 如何指挥 AI
+4. 产品或商业判断
+5. 代码知识
+6. Debug 思路
 
-Before publishing or sharing generated reviews, inspect them for private information. Project reviews may include:
+因此，它不会默认把报告写成代码语法课。代码解释只服务于项目理解、架构理解、流程理解和决策复盘。
 
-- local file paths
-- chat excerpts
-- commit messages
-- deployment URLs
-- product ideas
-- business assumptions
-- error logs
-- screenshots or PR references
+## 报告会包含什么
 
-The skill instructions tell Codex not to fabricate missing evidence and not to hard-code creator-specific paths.
+根据复盘模式不同，报告通常会包含：
 
-## Repository Contents
+- 证据盘点
+- 本阶段或完整项目做了什么
+- 项目推进流程复盘
+- 架构理解
+- AI 协作与指挥复盘
+- 产品/商业判断
+- 代码知识轻解释
+- Debug 与返工复盘
+- 六项评分卡
+- “你这次真正需要改进的地方”
+- 项目理解行动作业
+- 下次可复用提示词
+
+月度汇总还会包含：
+
+- 纳入报告列表
+- 评分变化趋势
+- 重复出现的问题
+- 未完成或反复出现的行动作业
+- 本月项目负责人能力变化
+- 下个月真正需要改变的地方
+
+## 安全与隐私
+
+复盘报告可能包含敏感信息。公开或分享报告前，请检查其中是否包含：
+
+- 本地文件路径
+- 聊天记录片段
+- commit 信息
+- 部署地址
+- 产品想法
+- 商业假设
+- 错误日志
+- 截图或 PR 信息
+
+Skill 指令中已经要求 Codex 不要编造缺失证据，也不要写死原作者的本地路径。但具体项目材料是否适合公开，仍需要使用者自己判断。
+
+## 仓库结构
 
 ```text
 .
@@ -136,10 +169,12 @@ The skill instructions tell Codex not to fabricate missing evidence and not to h
     └── report-templates.md
 ```
 
-## Validation
+## 校验
 
-If you have the Codex skill creator scripts available, validate the skill with:
+如果你本地有 Codex skill creator 脚本，可以运行：
 
 ```bash
 python3 /path/to/skill-creator/scripts/quick_validate.py ~/.codex/skills/vibe-coding-review
 ```
+
+校验通过说明 Skill 的基础结构合法，但不代表复盘质量已经在真实项目中充分验证。建议先用一个小范围项目阶段做试跑，再根据报告质量迭代模板。
