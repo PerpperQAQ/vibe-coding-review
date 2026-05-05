@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vibe Coding Review"
+  short_description: "将 vibe coding 项目沉淀成复盘与月度汇总"
+  default_prompt: "Use $vibe-coding-review to generate an Obsidian-friendly project review or monthly summary for my vibe coding work."

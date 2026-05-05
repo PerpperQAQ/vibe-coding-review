@@ -1,0 +1,12 @@
+.DS_Store
+*.log
+*.tmp
+*.bak
+node_modules/
+dist/
+build/
+coverage/
+vibe-coding-reviews/
+docs/vibe-coding-reviews/
+notes/vibe-coding-reviews/
+reviews/vibe-coding-reviews/
