@@ -82,10 +82,10 @@ export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 
 ## 使用方法
 
-阶段复盘示例：
+个人阶段复盘示例：
 
 ```text
-使用 $vibe-coding-review 给这个项目做一次阶段复盘。
+使用 $vibe-coding-review 给这个项目做一次个人阶段复盘。
 范围：最近 3 次 commit。
 请重点分析项目推进流程、架构变化、AI 指挥质量和验收结果。
 ```
@@ -102,6 +102,33 @@ export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 ```text
 使用 $vibe-coding-review 基于这些复盘报告生成一份月度复盘汇总。
 请比较评分变化、重复出现的问题、未完成行动作业，以及我作为项目负责人的能力变化。
+```
+
+## 避免误触发
+
+这个 Skill 面向“个人学习复盘”，不是普通项目文档生成器。
+
+推荐在想触发它时明确说明个人复盘意图，例如：
+
+- `个人复盘`
+- `vibe coding 复盘`
+- `学习复利`
+- `项目负责人复盘`
+- `评分卡`
+- `改进问题分析`
+
+如果你只是想写项目内部文档，例如阶段性技术总结、开发进度记录、changelog、release notes、交接文档、README 更新或 sprint/status report，不应该使用这个 Skill。
+
+项目内技术总结可以这样写：
+
+```text
+给这个项目写一份阶段性技术总结，作为项目内部开发进度文档，不要使用 $vibe-coding-review。
+```
+
+个人学习复盘可以这样写：
+
+```text
+使用 $vibe-coding-review 给我做一次个人阶段复盘，重点分析我如何指挥 AI 和哪里需要改进。
 ```
 
 ## 报告重点

@@ -1,6 +1,6 @@
 ---
 name: vibe-coding-review
-description: Generate Obsidian-friendly project review reports and monthly review summaries that turn vibe coding sessions into reusable learning assets. Use when a user asks to review,复盘,总结,沉淀,月度汇总, or learn from an AI-assisted coding project during a stage milestone, after project completion, or across multiple existing review reports, especially from code repositories, git commits, chat records, AI plans, logs, screenshots, README files, PRs, deployment results, and other project evidence.
+description: Generate personal learning-oriented vibe coding review reports and monthly review summaries that turn AI-assisted coding projects into reusable learning assets. Use only when the user explicitly asks for personal复盘, vibe coding复盘, 学习复利, 项目负责人复盘, 个人成长总结, 评分卡, 改进问题分析, or 月度复盘汇总 from an AI-assisted coding project. Do not use for ordinary project-internal technical summaries, stage progress summaries, changelogs, release notes, implementation notes, handoff docs, README updates, or development status documents unless the user explicitly says the output is for their personal vibe-coding learning review.
 ---
 
 # Vibe Coding Review
@@ -19,6 +19,22 @@ Prioritize learning value in this order:
 6. Debug thinking
 
 Do not turn the report into a line-by-line code tutorial. Explain code only when it helps the user understand the project, architecture, workflow, or decision quality.
+
+## Trigger Boundary
+
+Use this skill only for the user's personal learning review, not for normal project documentation.
+
+Do not use this skill for:
+
+- Project-internal stage technical summaries
+- Development progress records
+- Changelogs or release notes
+- Implementation notes
+- Handoff documents for other developers or agents
+- README or docs updates
+- Sprint/status reports meant to live inside the project
+
+When the user asks for "阶段性总结", "技术总结", "开发进度总结", "阶段文档", or similar wording, first decide whether the audience is the project or the user's personal learning. If the output is meant to record project progress inside the repository, do not use this skill. If the user explicitly says "个人复盘", "vibe coding 复盘", "学习复利", "给我自己看", "项目负责人复盘", or asks for scoring and personal improvement analysis, use this skill.
 
 ## Output Location
 
