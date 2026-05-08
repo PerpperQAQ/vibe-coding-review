@@ -159,7 +159,7 @@ export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 - 六项评分卡
 - “你这次真正需要改进的地方”
 - 项目理解行动作业
-- 下次可复用提示词
+- 根据问题得出的提示词优化方向
 
 月度汇总还会包含：
 
@@ -169,6 +169,7 @@ export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 - 未完成或反复出现的行动作业
 - 本月项目负责人能力变化
 - 下个月真正需要改变的地方
+- 下个月提示词优化方向
 
 ## 安全与隐私
 

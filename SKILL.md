@@ -225,6 +225,16 @@ Good homework examples:
 
 Avoid broad homework such as "learn React" or "study databases".
 
+## Prompt Optimization Chapter
+
+For stage reviews, do not end with a generic full prompt. Convert the problems found in `## 10. 你这次真正需要改进的地方` into prompt-improvement directions.
+
+The prompt optimization chapter must create a closed loop:
+
+`observed problem -> prompt gap -> next constraint -> reusable prompt fragment`
+
+Prefer 3 to 5 high-value directions. Tie each direction to an actual problem, score reason, debug issue, or acceptance gap from the report. Avoid broad reusable prompts that are not clearly derived from this review's evidence.
+
 ## Templates
 
 When generating the report, read `references/report-templates.md` and use the matching template:
