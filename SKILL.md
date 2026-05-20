@@ -84,6 +84,8 @@ If the user does not specify a scope:
 3. If no commit baseline exists, use the previous report's `created` time as a date baseline.
 4. If no previous report exists, analyze the visible project history and mark the evidence boundary clearly.
 
+When a previous same-project review exists, also extract its scores, repeated issue tags, action homework, and prompt-optimization directions. Use them for trend comparison and repeated-problem analysis in the new report.
+
 Always include the chosen scope and evidence limitations in the report. Do not pretend missing evidence was analyzed.
 
 ## Evidence Collection
@@ -130,7 +132,8 @@ Required monthly summary behavior:
 - Use the reports explicitly provided by the user. If the user gives a month and project but no files, search the chosen output directory for matching reports.
 - List every included report with filename, review type, project, date, and whether scores were found.
 - Compare the six fixed scoring dimensions over time. Use a table and identify upward, downward, and flat trends.
-- Identify repeated problems from each report's "你这次真正需要改进的地方" chapter.
+- Identify repeated problems from each report's "你这次真正需要改进的地方" chapter and from `review_issue_tags` when present.
+- For repeated problems such as "the user keeps saying continue next stage", analyze the likely cause chain: visible behavior, evidence, why the behavior happens, how AI incentives amplify it, and what prompt or workflow constraint would interrupt it. Do not over-psychologize; tie the cause analysis to report evidence.
 - Identify repeated or unfinished action homework.
 - Summarize what the user appears to be learning across projects or stages.
 - End with 1 to 3 monthly action homework items focused on changing the user's project-owner behavior.
@@ -182,6 +185,26 @@ tags:
 ---
 ```
 
+For stage and complete reviews, also include structured metadata for future trend and monthly analysis:
+
+```yaml
+review_issue_tags:
+  - tag-or-none
+prompt_constraint_tags:
+  - tag-or-none
+score_snapshot:
+  project_clarity: null
+  architecture_understanding: null
+  ai_direction_quality: null
+  product_judgment_quality: null
+  validation_awareness: null
+  compounding_quality: null
+```
+
+Use short lowercase kebab-case values for tags, such as `continue-next-stage-inertia`, `vague-acceptance-criteria`, `missing-user-path-validation`, `weak-architecture-recall`, `overbroad-scope`, `static-tests-over-real-validation`, `unclear-product-gate`, or `unfinished-homework`. If no repeated issue is supported by evidence, use `tag-or-none`.
+
+Fill `score_snapshot` with the same integer scores used in the report scoring table. Use `null` only when a score truly cannot be determined.
+
 For complete reviews, set `review_type: 完整复盘`.
 
 For monthly summaries, set `review_type: 月度复盘汇总`, set `source_repo: null` unless one project repository is clearly relevant, and use `included_reports` when helpful:
@@ -204,6 +227,24 @@ Always include the fixed six scoring dimensions, each scored from 1 to 10:
 
 For every score, include one concrete reason and one improvement direction. Scores should reflect evidence, not encouragement.
 
+After the scoring table, include a score trend comparison when a previous same-project report is available. Compare the same six dimensions against the previous report, mark each as `上升`, `持平`, `下降`, or `无法比较`, and explain the behavior change behind the score movement. If no previous comparable report exists, explicitly say that this is the first comparable baseline.
+
+## Core Concept Dictionary
+
+For stage reviews, include a standalone chapter named:
+
+`## 本阶段核心概念词典`
+
+Explain 3 to 5 concepts that the user must understand to learn from this stage. These can be files, modules, architecture patterns, validation concepts, product concepts, or AI-collaboration concepts. Do not write generic textbook definitions. Explain each concept in the current project context:
+
+- What it means in this project
+- Why this stage needed it
+- What the user should be able to say in their own words
+
+Bias toward project understanding rather than programming vocabulary.
+
+For complete reviews, use `## 项目核心概念词典` and select 5 to 8 concepts that explain the whole project.
+
 ## Improvement Chapter
 
 Always include a standalone chapter named:
@@ -211,6 +252,22 @@ Always include a standalone chapter named:
 `## 你这次真正需要改进的地方`
 
 Use this chapter to identify the user's most important process problems. Tie each problem to evidence, such as vague prompts, missing acceptance criteria, weak testing, unclear scope, over-reliance on AI continuation, or lack of architectural checkpoints.
+
+## Repeated Issue Tags And Cause Analysis
+
+For stage and complete reviews, include a standalone chapter named:
+
+`## 重复问题标签与成因分析`
+
+Tag the most important problems using stable kebab-case tags. Prefer reusing tags from previous reports for the same underlying behavior. For each tag, include:
+
+- `本次是否出现`: 是/否/部分
+- `证据`: where it appeared in prompts, commits, validation, docs, or missing evidence
+- `成因判断`: why this behavior likely happens, based on evidence
+- `AI 放大机制`: how AI tools may make the behavior easier to repeat
+- `阻断动作`: one concrete prompt or workflow constraint for next time
+
+When analyzing "continue next stage" behavior, distinguish at least these possible causes when evidence supports them: the user wants momentum, the stage goal is not written as an acceptance gate, AI fills missing scope by default, previous-stage documents create inertia, or the user lacks a quick product/architecture checklist before giving the next command.
 
 ## Action Homework
 
@@ -227,13 +284,25 @@ Avoid broad homework such as "learn React" or "study databases".
 
 ## Prompt Optimization Chapter
 
-For stage reviews, do not end with a generic full prompt. Convert the problems found in `## 10. 你这次真正需要改进的地方` into prompt-improvement directions.
+For stage reviews, do not end with a generic full prompt. Convert the problems found in `## 你这次真正需要改进的地方` into prompt-improvement directions.
 
 The prompt optimization chapter must create a closed loop:
 
 `observed problem -> prompt gap -> next constraint -> reusable prompt fragment`
 
-Prefer 3 to 5 high-value directions. Tie each direction to an actual problem, score reason, debug issue, or acceptance gap from the report. Avoid broad reusable prompts that are not clearly derived from this review's evidence.
+Prefer 3 to 5 high-value directions. Tie each direction to an actual problem, score reason, debug issue, repeated issue tag, or acceptance gap from the report. Avoid broad reusable prompts that are not clearly derived from this review's evidence.
+
+Classify each direction by prompt slot:
+
+- `任务范围`: what this stage is and is not
+- `验收标准`: what must be true before the stage counts as done
+- `测试/证据要求`: what commands, screenshots, logs, or user-path checks must be shown
+- `禁止事项`: what the AI must not expand into
+- `handoff 要求`: what must be written for future agents or future stages
+- `风险检查`: what similar-risk searches or edge cases must be checked
+- `项目理解`: what the user must be able to explain back
+
+Each reusable fragment must map back to one issue tag or one row in the prompt-gap table. Do not provide a polished all-purpose prompt unless the user explicitly asks for one.
 
 ## Templates
 

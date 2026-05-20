@@ -154,10 +154,13 @@ export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 - 架构理解
 - AI 协作与指挥复盘
 - 产品/商业判断
+- 本阶段核心概念词典
 - 代码知识轻解释
 - Debug 与返工复盘
 - 六项评分卡
+- 和上一份同项目复盘相比的评分趋势
 - “你这次真正需要改进的地方”
+- 重复问题标签与成因分析
 - 项目理解行动作业
 - 根据问题得出的提示词优化方向
 
@@ -165,11 +168,21 @@ export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 
 - 纳入报告列表
 - 评分变化趋势
-- 重复出现的问题
+- 重复问题标签趋势
+- 高频问题成因分析，例如为什么会反复用“继续下一阶段”推进
 - 未完成或反复出现的行动作业
 - 本月项目负责人能力变化
 - 下个月真正需要改变的地方
 - 下个月提示词优化方向
+
+## 新增学习闭环
+
+新版本会把单次复盘和长期趋势连接起来：
+
+- 用“本阶段核心概念词典”帮助新手先抓住必须理解的 3-5 个概念
+- 用 `review_issue_tags` 追踪反复出现的问题，例如 `continue-next-stage-inertia`、`vague-acceptance-criteria`、`missing-user-path-validation`
+- 用评分趋势判断项目负责人行为是否真的改善，而不只是本次报告写得完整
+- 用提示词插入槽位把问题转成约束，例如任务范围、验收标准、测试证据、禁止事项、handoff、风险检查和项目理解
 
 ## 安全与隐私
 
