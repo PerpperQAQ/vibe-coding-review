@@ -92,6 +92,8 @@ Always include the chosen scope and evidence limitations in the report. Do not p
 
 Start every review with an evidence inventory. Search broadly, but keep the final report focused.
 
+For `阶段复盘` and `完整复盘`, read the complete current-window conversation context available to you before relying on repository diffs or final commits. Treat the active window as first-class evidence for the user's original goal, prompt constraints, scope decisions, AI plans, interruptions, validation attempts, acceptance criteria, and unresolved blockers. Do not summarize only the closing diff or final code state when current-window context is available. If the current-window context is unavailable, truncated, or only partially visible, record that limitation in the evidence inventory and under "缺失证据" or "证据边界".
+
 Use different evidence depth by review type:
 
 - For `阶段复盘`, prioritize evidence inside the stated scope: diff, implementation plan, chat decisions, error logs, and validation or acceptance results. Use broader repository documents only to explain context.
@@ -100,6 +102,7 @@ Use different evidence depth by review type:
 
 Collect these evidence types when available:
 
+- Current-window context: the full active conversation context available in the current Codex/Cursor/Trae/Claude Code window, including user prompts, AI decisions, tool/test outputs, validation evidence, and acceptance or scope changes.
 - Repository state: project root, branch, git status, recent commits, changed files, diffs for the review scope.
 - Project documents: README, docs, AGENTS, CLAUDE, package files, environment examples, configuration, architecture notes.
 - AI artifacts: plans, TODO files, task lists, generated implementation notes, review notes.
