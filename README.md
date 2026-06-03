@@ -144,32 +144,6 @@ export VIBE_CODING_REVIEW_DIR="$HOME/Documents/Obsidian/Vibe coding reviews"
 使用 $vibe-coding-review 复盘本阶段，报告写进我的 Obsidian 目录：/Users/me/Notes/Vibe coding复盘。
 ```
 
-## 什么时候不要用
-
-这个 skill 面向个人学习复盘，不面向项目内部文档。
-
-不适合这些任务：
-
-- 阶段性技术总结
-- 开发进度记录
-- changelog 或 release notes
-- README 更新
-- 交接文档
-- sprint/status report
-- 给其他开发者看的实现说明
-
-如果你要写项目内部技术总结，可以这样说：
-
-```text
-给这个项目写一份阶段性技术总结，作为项目内部开发进度文档，不要使用 $vibe-coding-review。
-```
-
-如果你要做个人学习复盘，可以这样说：
-
-```text
-使用 $vibe-coding-review 给我做一次个人阶段复盘，重点分析我如何指挥 AI 和哪里需要改进。
-```
-
 ## 评分维度
 
 报告固定使用六个评分维度，每项 1 到 10 分：
